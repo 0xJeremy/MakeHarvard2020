@@ -1,8 +1,29 @@
 from adafruit_servokit import ServoKit
 from gpiozero import LED
 
-class arms():
-	def __init__(self, kit, pin1, pin2):
+#################
+### CONSTANTS ###
+#################
+
+ARM_CHANNEL_1 = 0
+ARM_CHANNEL_2 = 1
+ARM_PIN_1 = 1
+ARM_PIN_2 = 2
+
+ARM_LOWER_SLEEP_TIME = 1
+ARM_RAISE_SLEEP_TIME = 1
+
+BASE_CHANNEL_1 = 2
+BASE_CHANNEL_2 = 3
+
+FULL_ROTATION_TIME = 10
+
+###############
+### CLASSES ###
+###############
+
+class Arms():
+	def __init__(self, kit, channel1, channel2, pin1, pin2):
 		self.kit = kit
 		self.openState = True
 		self.motor1 = LED(pin1)
@@ -14,6 +35,7 @@ class arms():
 		self.kit.servo[0] = 0
 		self.kit.servo[1] = 0
 		self.openState = False
+		time.sleep(ARM_RAISE_SLEEP_TIME)
 		return
 
 	def close(self):
@@ -22,6 +44,7 @@ class arms():
 		self.kit.servo[0] = 90
 		self.kit.servo[1] = 90
 		self.openState = True
+		time.sleep(ARM_LOWER_SLEEP_TIME)
 		return
 
 	def l_motor(self, state):
@@ -50,5 +73,36 @@ class arms():
 		self.motors_off()
 		self.open()
 
+class Base():
+	def __init__(self, kit, channel1, channel2):
+		self.kit = kit
+		self.channel1 = channel1
+		self.channel2 = channel2
+		self.go(0)
 
+	def go(self, direction):
+		self.kit.continuous_servo[self.channel1].throttle = direction
+		self.kit.continuous_servo[self.channel2].throttle = direction
 
+	def rotate(self, pos):
+		direction = 1 if self.pos < pos else -1
+		diff = pos - self.pos
+		duration = 10 / (diff / 360)
+		start = time.time()
+		while (time.time() - start) < duration:
+			self.go(direction)
+		self.go(0)
+		self.pos = pos
+
+class Actuation():
+	def __init__(self):
+		self.kit = ServoKit(channels=16)
+		self.arms = Arms(kit, ARM_CHANNEL_1, ARM_CHANNEL_2, ARM_PIN_1, ARM_PIN_2)
+		self.base = Base(kit, BASE_CHANNEL_1, BASE_CHANNEL_2)
+
+	def next_card(self):
+		self.arms.close_and_on()
+		self.arms.open_and_off()
+
+	def goto(self, pos):
+		self.base.go(pos)

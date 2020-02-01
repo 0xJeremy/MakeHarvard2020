@@ -397,7 +397,7 @@ def degree_calc(steps, steptype):
 
 def importtest(text):
     """ testing import """
-    print(text)
+    # print(text)
     text = " "
 
 # ===================== MAIN ===============================
