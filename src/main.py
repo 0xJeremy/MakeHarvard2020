@@ -2,6 +2,8 @@
 
 from sensor import sensor
 import time
+from motors import Actuation
+from mapping import Mapping
 
 ##################
 ### PARAMETERS ###
@@ -12,6 +14,8 @@ CAMERA_NUM = 2 # 1 for PiCamera, 2 for USB Camera
 ### GLOBALS ###
 ###############
 cam = sensor(CAMERA_NUM)
+ctrl = Actuation()
+mapping = Mapping()
 
 def main():
 	cam.start()
