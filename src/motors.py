@@ -2,7 +2,7 @@ import time
 from adafruit_servokit import ServoKit
 from gpiozero import LED
 from constants import ARM_CHANNEL_1, ARM_CHANNEL_2, MOTOR_PIN
-from constants import SMOTOR_CHANNEL_1, SMOTOR_CHANNEL_2
+from constants import SMOTOR_CHANNEL_1, SMOTOR_CHANNEL_2, MOTOR_SPIN_TIME
 from constants import ARM_OPEN_ANGLE_1, ARM_OPEN_ANGLE_2, ARM_CLOSE_ANGLE_1, ARM_CLOSE_ANGLE_2
 from constants import ARM_LOWER_SLEEP_TIME, ARM_RAISE_SLEEP_TIME
 from constants import BASE_CHANNEL_1, BASE_CHANNEL_2, FULL_ROTATION_TIME
@@ -41,8 +41,8 @@ class Arms():
 	def motors(self, state):
 		if state:
 			self.DCmotor.on()
-			self.kit.continuous_servo[self.smotor1].throttle = 1
 			self.kit.continuous_servo[self.smotor1].throttle = -1
+			self.kit.continuous_servo[self.smotor1].throttle = 1
 		else:
 			self.DCmotor.off()
 			self.kit.continuous_servo[self.smotor1].throttle = 0
@@ -95,6 +95,7 @@ class Actuation():
 		self.kit = ServoKit(channels=16)
 		self.arms = Arms(self.kit)
 		self.base = Base(self.kit)
+		self.arms.open_and_off()
 
 	def next_card(self):
 		print("Activating next Card")
