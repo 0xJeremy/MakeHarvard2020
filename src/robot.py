@@ -7,7 +7,7 @@ import time
 class Robot():
 	def __init__(self, camera_num):
 		self.cam = sensor(camera_num)
-		# self.ctrl = Actuation()
+		self.ctrl = Actuation()
 		self.last_card = None
 		self.stopped = False
 		self.mapping = None

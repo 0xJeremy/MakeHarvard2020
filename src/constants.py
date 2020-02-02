@@ -4,15 +4,15 @@ import cv2
 ### ROBOT ###
 #############
 
-ROBOT_ENABLE = False
+ROBOT_ENABLE = True
 CAMERA = 1
 
 #############
 ### IMAGE ###
 #############
 
-IM_WIDTH = 800
-IM_HEIGHT = 480 
+IM_WIDTH = 1366
+IM_HEIGHT = 768 
 FRAME_RATE = 10
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 SHOW_FRAME = False
