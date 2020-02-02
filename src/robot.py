@@ -27,11 +27,19 @@ class Robot():
 				break
 			cards, num = self.cam.get_cards()
 			if num == 1:
-				card = cards[0]
+				try:
+					card = cards[0]
+				except:
+					print("Error getting first card")
+					continue
 				if self.mapping is not None:
-					if self.mapping.get_mode() is 'ranks' and card.best_rank_match is 'Unknown':
-						continue
-					if self.mapping.get_mode() is 'suit' and card.best_suit_match is 'Unknown':
+					try:
+						if self.mapping.get_mode() is 'ranks' and card.best_rank_match is 'Unknown':
+							continue
+						if self.mapping.get_mode() is 'suit' and card.best_suit_match is 'Unknown':
+							
+					except:
+						print("Error getting card mappings")
 						continue
 					pos = self.mapping.get_pos(card)
 					self.ctrl.goto(pos)
