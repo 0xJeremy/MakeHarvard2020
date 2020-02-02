@@ -32,7 +32,7 @@ body {
 }
 
 .col-md {
-	width: 33%;
+	width: 25%;
 }
 
 .row {
@@ -46,6 +46,6 @@ body {
 }
 
 .btn {
-	font-size: 1.5em;
+	font-size: 1.2em;
 	padding: 0.2em 0.55em 0.2em 0.55em;
 }

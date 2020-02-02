@@ -1,10 +1,11 @@
 import cv2
 
-##############
-### CAMERA ###
-##############
+#############
+### ROBOT ###
+#############
 
-CAMERA = 2
+ROBOT_ENABLE = False
+CAMERA = 1
 
 #############
 ### IMAGE ###
@@ -26,6 +27,8 @@ SUITS = ['Spades','Diamonds','Clubs','Hearts']
 COLOR = ['Red', 'Black']
 REDS = ['Diamonds', 'Hearts']
 BLACKS = ['Spades, Clubs']
+NUM_PLAYERS = 4
+NUM_DEAL_CARDS = 5
 
 ##############
 ### MOTORS ###

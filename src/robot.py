@@ -53,5 +53,7 @@ class Robot():
 			self.mapping = Mapping("suits")
 		if method == "rank":
 			self.mapping = Mapping("rank")
+		if method == "deal":
+			self.mapping = Mapping("deal")
 		if method == "stop":
 			self.mapping = None

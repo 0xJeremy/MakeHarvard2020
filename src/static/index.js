@@ -20,7 +20,7 @@ var started = false;
 
 function sort_suit() {
 	if(started) {
-		trow.innerHTML = "ERROR! Sorting has already started."
+		trow.innerHTML = "ERROR! Machine is currently busy."
 		return;
 	}
 	started = true
@@ -31,7 +31,7 @@ function sort_suit() {
 
 function sort_rank() {
 	if(started) {
-		trow.innerHTML = "ERROR! Sorting has already started."
+		trow.innerHTML = "ERROR! Machine is currently busy."
 		return;
 	}
 	started = true
@@ -41,9 +41,19 @@ function sort_rank() {
 
 }
 
+function deal() {
+	if(started) {
+		trow.innerHTML = "ERROR! Machine is currently busy."
+		return;
+	}
+	started = true
+	start("Currently Dealing")
+	trow.innerHTML = "";
+}
+
 function stop() {
 	if(!started) {
-		trow.innerHTML = "ERROR! Sorting not started."
+		trow.innerHTML = "No action in progress."
 		return;
 	}
 	started = false;

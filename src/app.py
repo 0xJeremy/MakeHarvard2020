@@ -1,9 +1,11 @@
 from flask import Flask, Response, render_template, request
 import threading
-from robot import Robot
-from constants import CAMERA
+from constants import CAMERA, ROBOT_ENABLE
 
-robot = Robot(CAMERA).start()
+robot = None
+if ROBOT_ENABLE:
+	from robot import Robot
+	robot = Robot(CAMERA).start()
 
 app = Flask(__name__)
 
@@ -22,6 +24,7 @@ def get_card():
 @app.route('/start', methods=['POST'])
 def start():
 	global robot
-	robot.sort(request.form['type'])
+	if ROBOT_ENABLE:
+		robot.sort(request.form['type'])
 	print("Starting sorting with {}".format(request.form['type']))
 	return "Success!"

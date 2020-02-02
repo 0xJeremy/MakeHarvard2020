@@ -1,4 +1,4 @@
-from constants import RANKS, SUITS, COLOR, REDS, BLACKS
+from constants import RANKS, SUITS, COLOR, REDS, BLACKS, NUM_PLAYERS, NUM_DEAL_CARDS
 
 class Mapping():
 	def __init__(self, mode="ranks"):
@@ -9,7 +9,11 @@ class Mapping():
 		elif self.mode == 'suits':
 			self.top_level = SUITS
 			self.f = self.get_suits
-		else:
+		elif self.mode == "deal":
+			self.top_level = [None]
+			self.f = self.get_card
+			self.deal_count = 0
+		elif self.mode == "color":
 			self.top_level = COLOR
 			self.f = self.get_color
 
@@ -29,6 +33,13 @@ class Mapping():
 		if card.best_suit_match in self.map.keys():
 			return self.map[card.best_suit_match]
 		return self.new_pos(card.best_suit_match)
+
+	def get_card(self, card):
+		if self.deal_count < (NUM_PLAYERS * NUM_DEAL_CARDS):
+			self.deal_count += 1
+			return (360 / NUM_PLAYERS) * (self.deal_count % NUM_PLAYERS)
+		while True:
+			pass
 
 	def get_color(self, card):
 		color = 'Red' if card.best_suit_match in REDS else 'Black'
