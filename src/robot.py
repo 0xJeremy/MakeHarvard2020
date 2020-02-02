@@ -36,8 +36,8 @@ class Robot():
 					try:
 						if self.mapping.get_mode() is 'ranks' and card.best_rank_match is 'Unknown':
 							continue
-						if self.mapping.get_mode() is 'suit' and card.best_suit_match is 'Unknown':
-							
+						if self.mapping.get_mode() is 'suits' and card.best_suit_match is 'Unknown':
+							continue
 					except:
 						print("Error getting card mappings")
 						continue

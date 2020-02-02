@@ -71,4 +71,4 @@ BASE_CHANNEL_1 = 4
 BASE_CHANNEL_2 = 5
 
 # Time (seconds) to perform one full rotation
-FULL_ROTATION_TIME = 10
+FULL_ROTATION_TIME = 2
