@@ -6,8 +6,8 @@ import Cards
 import VideoStream
 from threading import Thread
 
-IM_WIDTH = 1280
-IM_HEIGHT = 720
+IM_WIDTH = 800
+IM_HEIGHT = 480 
 FRAME_RATE = 10
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
