@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 
 from sensor import sensor
-import time
 from motors import Actuation
 from mapping import Mapping
+import time
 
 ##################
 ### PARAMETERS ###
 ##################
-CAMERA_NUM = 2 # 1 for PiCamera, 2 for USB Camera
+CAMERA_NUM = 1 # 1 for PiCamera, 2 for USB Camera
 
 ###############
 ### GLOBALS ###
@@ -23,9 +23,14 @@ def main():
 		if cam.stopped:
 			break
 		cards, num = cam.get_cards()
-		if num != 0:
-			print(num)
-			print("Card: {} {}".format(cards[0].best_rank_match, cards[0].best_suit_match))
+		if num == 1:
+			card = cards[0]
+			if card.best_rank_match is 'Unknown' or card.best_suit_match is 'Unknown':
+				continue
+			pos = mapping.get_pos(card)
+			ctrl.goto(pos)
+			ctrl.next_card()
+			print("Card: {} {}".format(card.best_rank_match, card.best_suit_match))
 		time.sleep(0.2)
 
 

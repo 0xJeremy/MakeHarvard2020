@@ -9,6 +9,10 @@ COLOR = ['Red', 'Black']
 REDS = ['Diamonds', 'Hearts']
 BLACKS = ['Spades, Clubs']
 
+#####################
+### MAPPING CLASS ###
+#####################
+
 class Mapping():
 	def __init__(self, mode="ranks"):
 		self.mode = ranks
@@ -49,4 +53,3 @@ class Mapping():
 		self.map[card] = self.curr_piles
 		self.curr_piles += self.pos_size
 		return self.map[card]
-
