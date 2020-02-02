@@ -1,3 +1,4 @@
+import time
 from adafruit_servokit import ServoKit
 from gpiozero import LED
 from constants import ARM_CHANNEL_1, ARM_CHANNEL_2, ARM_PIN_1, ARM_PIN_2, ARM_LOWER_SLEEP_TIME, ARM_RAISE_SLEEP_TIME, BASE_CHANNEL_1, BASE_CHANNEL_2, FULL_ROTATION_TIME
@@ -58,6 +59,7 @@ class Base():
 		self.kit = kit
 		self.channel1 = channel1
 		self.channel2 = channel2
+		self.pos = 0
 		self.go(0)
 
 	def go(self, direction):

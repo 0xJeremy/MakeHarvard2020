@@ -1,5 +1,5 @@
 from sensor import sensor
-# from motors import Actuation
+from motors import Actuation
 from mapping import Mapping
 from threading import Thread
 import time
@@ -10,6 +10,7 @@ class Robot():
 		# self.ctrl = Actuation()
 		self.last_card = None
 		self.stopped = False
+		self.mapping = None
 
 	def start(self):
 		Thread(target=self.update, args=()).start()
@@ -31,8 +32,8 @@ class Robot():
 					continue
 				if self.mapping is not None:
 					pos = self.mapping.get_pos(card)
-					# self.ctrl.goto(pos)
-					# self.ctrl.next_card()
+					self.ctrl.goto(pos)
+					self.ctrl.next_card()
 				self.last_card = card
 				print("Card: {} {}".format(card.best_rank_match, card.best_suit_match))
 

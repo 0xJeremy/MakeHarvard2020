@@ -3,7 +3,7 @@ import threading
 from robot import Robot
 from constants import CAMERA
 
-# robot = Robot(CAMERA).start()
+robot = Robot(CAMERA).start()
 
 app = Flask(__name__)
 
@@ -21,7 +21,7 @@ def get_card():
 
 @app.route('/start', methods=['POST'])
 def start():
-	# global robot
-	# robot.sort(request.form['type'])
+	global robot
+	robot.sort(request.form['type'])
 	print("Starting sorting with {}".format(request.form['type']))
 	return "Success!"
