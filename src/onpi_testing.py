@@ -1,5 +1,6 @@
 from adafruit_servokit import ServoKit
 from motors import Base
+from gpiozero import LED
 import time
 
 kit = ServoKit(channels=16)
@@ -16,8 +17,10 @@ kit = ServoKit(channels=16)
 # time.sleep(2)
 # base.go(0)
 
-motor = 3
 
-kit.continuous_servo[motor] = 1
+motor = LED(40)
+
+motor.on()
 time.sleep(1)
-kit.continuous_servo[motor] = 0
+motor.off()
+
