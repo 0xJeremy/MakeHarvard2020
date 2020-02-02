@@ -1,0 +1,16 @@
+body {
+	background-color: black;
+}
+
+@font-face {
+    font-family: 'Tahoma';
+    src: url('Tahoma-Bold.woff2') format('woff2'),
+        url('Tahoma-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+#title {
+	font-family: 'Tahoma';
+	color: rgb(56, 179, 113);
+}

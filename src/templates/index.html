@@ -1,9 +1,11 @@
 <html>
   <head>
     <title>Pi Camera Feed</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index.css') }}">
   </head>
   <body>
-    <h1>Pi Camera Feed</h1>
-    <img src="{{ url_for('video_feed') }}">
+    <h1 id="title">MAKEHARVARD 2020</h1>
   </body>
 </html>
