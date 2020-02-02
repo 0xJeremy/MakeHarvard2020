@@ -1,51 +1,71 @@
 import time
 from adafruit_servokit import ServoKit
 from gpiozero import LED
-from constants import ARM_CHANNEL_1, ARM_CHANNEL_2, MOTOR_PIN, ARM_OPEN_ANGLE, ARM_CLOSE_ANGLE, ARM_LOWER_SLEEP_TIME, ARM_RAISE_SLEEP_TIME, BASE_CHANNEL_1, BASE_CHANNEL_2, FULL_ROTATION_TIME
+from constants import ARM_CHANNEL_1, ARM_CHANNEL_2, MOTOR_PIN
+from constants import SMOTOR_CHANNEL_1, SMOTOR_CHANNEL_2
+from constants import ARM_OPEN_ANGLE_1, ARM_OPEN_ANGLE_2, ARM_CLOSE_ANGLE_1, ARM_CLOSE_ANGLE_2
+from constants import ARM_LOWER_SLEEP_TIME, ARM_RAISE_SLEEP_TIME
+from constants import BASE_CHANNEL_1, BASE_CHANNEL_2, FULL_ROTATION_TIME
+
+##################
+### ARMS CLASS ###
+##################
 
 class Arms():
-	def __init__(self, kit, channel1, channel2, motor):
+	def __init__(self, kit, channel1=ARM_CHANNEL_1, channel2=ARM_CHANNEL_2, DCmotor=MOTOR_PIN, \
+				 smotor1=SMOTOR_CHANNEL_1, smotor2=SMOTOR_CHANNEL_2):
 		self.kit = kit
 		self.openState = True
 		self.channel1 = channel1
 		self.channel2 = channel2
-		self.motor = LED(motor)
+		self.DCmotor = LED(DCmotor)
+		self.smotor1 = smotor1
+		self.smotor2 = smotor2
 
 	def open(self):
 		if not self.openState:
 			return
-		self.kit.servo[self.channel1].angle = ARM_OPEN_ANGLE
-		self.kit.servo[self.channel2].angle = ARM_OPEN_ANGLE
+		self.kit.servo[self.channel1].angle = ARM_OPEN_ANGLE_1
+		self.kit.servo[self.channel2].angle = ARM_OPEN_ANGLE_2
 		self.openState = False
-		time.sleep(ARM_RAISE_SLEEP_TIME)
 		return
 
 	def close(self):
 		if self.openState:
 			return
-		self.kit.servo[self.channel1].angle = ARM_CLOSE_ANGLE
-		self.kit.servo[self.channel2].angle = ARM_CLOSE_ANGLE
+		self.kit.servo[self.channel1].angle = ARM_CLOSE_ANGLE_1
+		self.kit.servo[self.channel2].angle = ARM_CLOSE_ANGLE_2
 		self.openState = True
-		time.sleep(ARM_LOWER_SLEEP_TIME)
 		return
 
 	def motors(self, state):
 		if state:
-			self.motor.on()
+			self.DCmotor.on()
+			self.kit.continuous_servo[self.smotor1] = 1
+			self.kit.continuous_servo[self.smotor1] = 1
 		else:
-			self.motor.off()
+			self.DCmotor.off()
+			self.kit.continuous_servo[self.smotor1] = 0
+			self.kit.continuous_servo[self.smotor1] = 0
 		return
 
 	def close_and_on(self):
 		self.close()
+		time.sleep(ARM_LOWER_SLEEP_TIME)
 		self.motors(True)
+		time.sleep(MOTOR_SPIN_TIME)
 
 	def open_and_off(self):
 		self.motors(False)
 		self.open()
+		time.sleep(ARM_RAISE_SLEEP_TIME)
+
+##################
+### BASE CLASS ###
+##################
 
 class Base():
-	def __init__(self, kit, channel1, channel2):
+	def __init__(self, kit, channel1=BASE_CHANNEL_1, channel2=BASE_CHANNEL_2):
 		self.kit = kit
 		self.channel1 = channel1
 		self.channel2 = channel2
@@ -66,11 +86,15 @@ class Base():
 		self.go(0)
 		self.pos = pos
 
+###########################
+### ACTUATION INTERFACE ###
+###########################
+
 class Actuation():
 	def __init__(self):
 		self.kit = ServoKit(channels=16)
-		self.arms = Arms(self.kit, ARM_CHANNEL_1, ARM_CHANNEL_2, MOTOR_PIN)
-		self.base = Base(self.kit, BASE_CHANNEL_1, BASE_CHANNEL_2)
+		self.arms = Arms(self.kit)
+		self.base = Base(self.kit)
 
 	def next_card(self):
 		self.arms.close_and_on()
