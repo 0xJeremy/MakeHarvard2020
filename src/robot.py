@@ -10,6 +10,7 @@ class Robot():
 		# self.ctrl = Actuation()
 		self.mapping = Mapping()
 		self.last_card = None
+		self.stopped = False
 
 	def start(self):
 		Thread(target=self.update, args=()).start()
