@@ -1,26 +1,8 @@
 from adafruit_servokit import ServoKit
 from gpiozero import LED
-
-#################
-### CONSTANTS ###
-#################
-
-ARM_CHANNEL_1 = 0
-ARM_CHANNEL_2 = 1
-ARM_PIN_1 = 1
-ARM_PIN_2 = 2
-
-ARM_LOWER_SLEEP_TIME = 1
-ARM_RAISE_SLEEP_TIME = 1
-
-BASE_CHANNEL_1 = 2
-BASE_CHANNEL_2 = 3
-
-FULL_ROTATION_TIME = 10
-
-###############
-### CLASSES ###
-###############
+from constants import ARM_CHANNEL_1, ARM_CHANNEL_2, ARM_PIN_1,
+					  ARM_PIN_2, ARM_LOWER_SLEEP_TIME, ARM_RAISE_SLEEP_TIME
+					  BASE_CHANNEL_1, BASE_CHANNEL_2, FULL_ROTATION_TIME
 
 class Arms():
 	def __init__(self, kit, channel1, channel2, pin1, pin2):

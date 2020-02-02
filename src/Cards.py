@@ -10,6 +10,7 @@
 import numpy as np
 import cv2
 import time
+from constants import RANKS, SUITS
 
 ### Constants ###
 
@@ -77,8 +78,7 @@ def load_ranks(filepath):
     train_ranks = []
     i = 0
     
-    for Rank in ['Ace','Two','Three','Four','Five','Six','Seven',
-                 'Eight','Nine','Ten','Jack','Queen','King']:
+    for Rank in RANKS:
         train_ranks.append(Train_ranks())
         train_ranks[i].name = Rank
         filename = Rank + '.jpg'
@@ -94,7 +94,7 @@ def load_suits(filepath):
     train_suits = []
     i = 0
     
-    for Suit in ['Spades','Diamonds','Clubs','Hearts']:
+    for Suit in SUITS:
         train_suits.append(Train_suits())
         train_suits[i].name = Suit
         filename = Suit + '.jpg'

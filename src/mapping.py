@@ -1,28 +1,15 @@
-#################
-### CONSTANTS ###
-#################
-
-RANKS = ['Ace','Two','Three','Four','Five','Six','Seven',
-		 'Eight','Nine','Ten','Jack','Queen','King']
-SUITS = ['Spades','Diamonds','Clubs','Hearts']
-COLOR = ['Red', 'Black']
-REDS = ['Diamonds', 'Hearts']
-BLACKS = ['Spades, Clubs']
-
-#####################
-### MAPPING CLASS ###
-#####################
+from constants import RANKS, SUITS, COLOR, REDS, BLACKS
 
 class Mapping():
 	def __init__(self, mode="ranks"):
-		self.mode = ranks
+		self.mode = mode
 		if self.mode == 'ranks':
 			self.top_level = RANKS
 			self.f = self.get_ranks
 		elif self.mode == 'suits':
 			self.top_level = SUITS
 			self.f = self.get_suits
-		else
+		else:
 			self.top_level = COLOR
 			self.f = self.get_color
 

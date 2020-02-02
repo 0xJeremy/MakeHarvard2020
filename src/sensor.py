@@ -5,11 +5,7 @@ import os
 import Cards
 import VideoStream
 from threading import Thread
-
-IM_WIDTH = 800
-IM_HEIGHT = 480 
-FRAME_RATE = 10
-FONT = cv2.FONT_HERSHEY_SIMPLEX
+from constants import IM_WIDTH, IM_HEIGHT, FRAME_RATE, FONT, SHOW_FRAME
 
 class sensor:
 	def __init__(self, camera=1):
@@ -22,6 +18,7 @@ class sensor:
 		self.train_suits = Cards.load_suits( path + '/Card_Imgs/')
 		self.cards = []
 		self.stopped = False
+		self.curr_img = None
 
 	def start(self):
 		Thread(target=self.update, args=()).start()
@@ -64,11 +61,13 @@ class sensor:
 
 			# Display functions
 			cv2.putText(image,"FPS: "+str(int(self.frame_rate_calc)),(10,26),FONT,0.7,(255,0,255),2,cv2.LINE_AA)
-			cv2.imshow("Card Detector",image)
+			self.curr_img = image
+			if SHOW_FRAME:
+				cv2.imshow("Card Detector",image)
 			self.frame_rate_calc = 1/((cv2.getTickCount()-t1)/self.freq)
 
 	def read(self):
-		return self.frame
+		return self.curr_img
 
 	def stop(self):
 		self.stopped = True
