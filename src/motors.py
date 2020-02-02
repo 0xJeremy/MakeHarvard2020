@@ -97,8 +97,10 @@ class Actuation():
 		self.base = Base(self.kit)
 
 	def next_card(self):
+		print("Activating next Card")
 		self.arms.close_and_on()
 		self.arms.open_and_off()
 
 	def goto(self, pos):
+		print("Going to pos: {}".format(pos))
 		self.base.rotate(pos)

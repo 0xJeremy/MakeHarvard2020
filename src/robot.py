@@ -29,13 +29,13 @@ class Robot():
 			if num == 1:
 				card = cards[0]
 				if self.mapping is not None:
-					if self.mapping.mode() is 'ranks' and card.best_rank_match is 'Unknown':
+					if self.mapping.get_mode() is 'ranks' and card.best_rank_match is 'Unknown':
 						continue
-					if self.mapping.mode() is 'suit' and card.best_suit_match is 'Unknown':
+					if self.mapping.get_mode() is 'suit' and card.best_suit_match is 'Unknown':
 						continue
-						pos = self.mapping.get_pos(card)
-						self.ctrl.goto(pos)
-						self.ctrl.next_card()
+					pos = self.mapping.get_pos(card)
+					self.ctrl.goto(pos)
+					self.ctrl.next_card()
 				self.last_card = card
 				print("Card: {} {}".format(card.best_rank_match, card.best_suit_match))
 
