@@ -1,20 +1,21 @@
 import time
 from adafruit_servokit import ServoKit
 from gpiozero import LED
-from constants import ARM_CHANNEL_1, ARM_CHANNEL_2, ARM_PIN_1, ARM_PIN_2, ARM_LOWER_SLEEP_TIME, ARM_RAISE_SLEEP_TIME, BASE_CHANNEL_1, BASE_CHANNEL_2, FULL_ROTATION_TIME
+from constants import ARM_CHANNEL_1, ARM_CHANNEL_2, ARM_PIN_1, ARM_LOWER_SLEEP_TIME, ARM_RAISE_SLEEP_TIME, BASE_CHANNEL_1, BASE_CHANNEL_2, FULL_ROTATION_TIME
 
 class Arms():
-	def __init__(self, kit, channel1, channel2, pin1, pin2):
+	def __init__(self, kit, channel1, channel2, motor):
 		self.kit = kit
 		self.openState = True
-		self.motor1 = LED(pin1)
-		self.motor2 = LED(pin2)
+		self.channel1 = channel1
+		self.channel2 = channel2
+		self.motor = motor
 
 	def open(self):
 		if not self.openState:
 			return
-		self.kit.servo[0] = 0
-		self.kit.servo[1] = 0
+		self.kit.servo[self.channel1] = 0
+		self.kit.servo[self.channel2] = 0
 		self.openState = False
 		time.sleep(ARM_RAISE_SLEEP_TIME)
 		return
@@ -22,23 +23,17 @@ class Arms():
 	def close(self):
 		if self.openState:
 			return
-		self.kit.servo[0] = 90
-		self.kit.servo[1] = 90
+		self.kit.servo[self.channel1] = 90
+		self.kit.servo[self.channel2] = 90
 		self.openState = True
 		time.sleep(ARM_LOWER_SLEEP_TIME)
 		return
 
-	def l_motor(self, state):
-		self.motor1.on() if state else self.motor1.off()
-		return
-
-	def r_motor(self, state):
-		self.motor1.on() if state else self.motor1.off()
-		return
-
 	def motors_on(self):
-		self.l_motor(True)
-		self.r_motor(True)
+		if state:
+			self.kit.continuous_servo[self.motor1] = 1
+		else:
+			self.kit.continuous_servo[self.motor1] = 0
 		return
 
 	def motors_off(self):
@@ -79,7 +74,7 @@ class Base():
 class Actuation():
 	def __init__(self):
 		self.kit = ServoKit(channels=16)
-		self.arms = Arms(kit, ARM_CHANNEL_1, ARM_CHANNEL_2, ARM_PIN_1, ARM_PIN_2)
+		self.arms = Arms(kit, ARM_CHANNEL_1, ARM_CHANNEL_2, ARM_PIN_1)
 		self.base = Base(kit, BASE_CHANNEL_1, BASE_CHANNEL_2)
 
 	def next_card(self):
