@@ -21,6 +21,9 @@ class Mapping():
 		self.curr_piles = 0
 		self.map = {}
 
+	def get_mode(self):
+		return self.mode
+
 	def get_pos(self, card):
 		return self.f(card)
 

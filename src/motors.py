@@ -41,12 +41,12 @@ class Arms():
 	def motors(self, state):
 		if state:
 			self.DCmotor.on()
-			self.kit.continuous_servo[self.smotor1] = 1
-			self.kit.continuous_servo[self.smotor1] = -1
+			self.kit.continuous_servo[self.smotor1].throttle = 1
+			self.kit.continuous_servo[self.smotor1].throttle = -1
 		else:
 			self.DCmotor.off()
-			self.kit.continuous_servo[self.smotor1] = 0
-			self.kit.continuous_servo[self.smotor1] = 0
+			self.kit.continuous_servo[self.smotor1].throttle = 0
+			self.kit.continuous_servo[self.smotor1].throttle = 0
 		return
 
 	def close_and_on(self):
