@@ -29,7 +29,7 @@ class Arms():
 		time.sleep(ARM_LOWER_SLEEP_TIME)
 		return
 
-	def motors_on(self, state):
+	def motors(self, state):
 		if state:
 			self.motor.on()
 		else:
@@ -38,10 +38,10 @@ class Arms():
 
 	def close_and_on(self):
 		self.close()
-		self.motors_on()
+		self.motors(True)
 
 	def open_and_off(self):
-		self.motors_off()
+		self.motors(False)
 		self.open()
 
 class Base():
@@ -57,9 +57,9 @@ class Base():
 		self.kit.continuous_servo[self.channel2].throttle = direction
 
 	def rotate(self, pos):
-		direction = 1 if self.pos < pos else -1
 		diff = pos - self.pos
-		duration = 10 / (diff / 360)
+		direction = 1 if diff > 0 else -1
+		duration = (FULL_ROTATION_TIME * abs(diff)) / 360
 		start = time.time()
 		while (time.time() - start) < duration:
 			self.go(direction)
@@ -69,12 +69,12 @@ class Base():
 class Actuation():
 	def __init__(self):
 		self.kit = ServoKit(channels=16)
-		self.arms = Arms(kit, ARM_CHANNEL_1, ARM_CHANNEL_2, ARM_PIN_1)
-		self.base = Base(kit, BASE_CHANNEL_1, BASE_CHANNEL_2)
+		self.arms = Arms(self.kit, ARM_CHANNEL_1, ARM_CHANNEL_2, MOTOR_PIN)
+		self.base = Base(self.kit, BASE_CHANNEL_1, BASE_CHANNEL_2)
 
 	def next_card(self):
 		self.arms.close_and_on()
 		self.arms.open_and_off()
 
 	def goto(self, pos):
-		self.base.go(pos)
+		self.base.rotate(pos)
