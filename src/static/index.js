@@ -14,7 +14,7 @@ function start(type) {
 function write_type(type) {
 	sorting.innerHTML = type
 }
-write_type("[None]")
+write_type("[Not Currently Sorting]")
 
 var started = false;
 
@@ -25,7 +25,7 @@ function sort_suit() {
 	}
 	started = true
 	start("suit")
-	write_type("Suit")
+	write_type("Currently Sorting: Suit")
 	trow.innerHTML = "";
 }
 
@@ -36,7 +36,7 @@ function sort_rank() {
 	}
 	started = true
 	start("rank")
-	write_type("Rank")
+	write_type("Currently Sorting: Rank")
 	trow.innerHTML = "";
 
 }
@@ -48,6 +48,6 @@ function stop() {
 	}
 	started = false;
 	start("stop")
-	write_type("[None]")
+	write_type("[Not Currently Sorting]")
 	trow.innerHTML = "";
 }
