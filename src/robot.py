@@ -8,7 +8,6 @@ class Robot():
 	def __init__(self, camera_num):
 		self.cam = sensor(camera_num)
 		# self.ctrl = Actuation()
-		self.mapping = Mapping()
 		self.last_card = None
 		self.stopped = False
 
@@ -30,9 +29,10 @@ class Robot():
 				card = cards[0]
 				if card.best_rank_match is 'Unknown' or card.best_suit_match is 'Unknown':
 					continue
-				pos = self.mapping.get_pos(card)
-				# self.ctrl.goto(pos)
-				# self.ctrl.next_card()
+				if self.mapping is not None:
+					pos = self.mapping.get_pos(card)
+					# self.ctrl.goto(pos)
+					# self.ctrl.next_card()
 				self.last_card = card
 				print("Card: {} {}".format(card.best_rank_match, card.best_suit_match))
 
@@ -46,3 +46,11 @@ class Robot():
 		if self.last_card is None:
 			return None
 		return self.last_card.best_rank_match, self.last_card.best_suit_match
+
+	def sort(self, method):
+		if method == "suit":
+			self.mapping = Mapping("suits")
+		if method == "rank":
+			self.mapping = Mapping("rank")
+		if method == "stop":
+			self.mapping = None

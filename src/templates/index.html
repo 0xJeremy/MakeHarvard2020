@@ -6,6 +6,31 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index.css') }}">
   </head>
   <body>
-    <h1 id="title">MAKEHARVARD 2020</h1>
+    <div class="container grid text-center">
+      <div class="row sort-text">
+        <div class="col-md text-right">
+          Currently Sorting:
+        </div>
+        <div class="col-md text-left" id="sorting">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md">
+          <button type="button" class="btn btn-outline-primary" onclick="sort_suit()">Sort Suit</button>
+        </div>
+        <div class="col-md">
+          <button type="button" class="btn btn-outline-primary" onclick="sort_rank()">Sort Rank</button>
+        </div>
+        <div class="col-md">
+          <button type="button" class="btn btn-outline-danger" onclick="stop()">END</button>
+        </div>
+      </div>
+      <div class="row trow">
+        <div class="col-md" id="trow">
+        </div>
+      </div>
+    </div>
+    <div class="title">MAKEHARVARD 2020</div>
   </body>
+  <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
 </html>

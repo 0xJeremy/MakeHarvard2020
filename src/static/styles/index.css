@@ -10,7 +10,42 @@ body {
     font-style: normal;
 }
 
-#title {
+.title {
 	font-family: 'Tahoma';
 	color: rgb(56, 179, 113);
+	font-size: 4.5em;
+	position: absolute;
+	bottom: 0.5em;
+	right: 0.5em;
+}
+
+.sort-text {
+	font-family: 'Tahoma';
+	color: rgb(56, 179, 113);
+}
+
+.grid {
+	color: white;
+	max-width: 100%;
+	font-size: 2em;
+	margin-top: 1em;
+}
+
+.col-md {
+	width: 33%;
+}
+
+.row {
+	margin-top: 2em;
+	margin-bottom: 3em;
+}
+
+.trow {
+	margin-top: -2em;
+	color: #dc3545;
+}
+
+.btn {
+	font-size: 1.5em;
+	padding: 0.2em 0.55em 0.2em 0.55em;
 }
